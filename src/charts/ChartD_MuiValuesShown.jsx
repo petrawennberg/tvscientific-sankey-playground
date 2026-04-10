@@ -7,13 +7,14 @@ import { buildMuiData, tvsColors, tvsFont } from './sankeyData';
 import ColumnHeaders from './ColumnHeaders';
 import EdgeLabels from './EdgeLabels';
 import './sankeyLabelFix.css';
+import './chartDLabels.css';
 
 export default function ChartD_MuiValuesShown() {
   const { nodes, links } = buildMuiData();
 
   return (
     <div style={{ width: '100%', ...tvsFont }}>
-      <div className="hide-edge-labels" style={{ position: 'relative' }}>
+      <div className="hide-edge-labels chart-d-labels" style={{ position: 'relative' }}>
       <ColumnHeaders />
       <EdgeLabels />
       <SankeyChart
@@ -23,7 +24,7 @@ export default function ChartD_MuiValuesShown() {
           nodeOptions: {
             showLabels: true,
             width: 16,
-            padding: 40,
+            padding: 55,
             sort: 'fixed',
           },
           linkOptions: {

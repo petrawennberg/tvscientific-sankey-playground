@@ -1,0 +1,9 @@
+/* Chart D: Center visit labels above their node streams */
+/* Skip impressions, conversions, no-conversion (handled by EdgeLabels) */
+.chart-d-labels text.MuiSankeyChart-nodeLabel:not([data-node="impressions"]):not([data-node="conversions"]):not([data-node="no-conversion"]) {
+  text-anchor: middle !important;
+  transform: translate(8px, -22px);
+  fill: #64748b !important;
+  font-weight: 400 !important;
+  font-size: 12px !important;
+}

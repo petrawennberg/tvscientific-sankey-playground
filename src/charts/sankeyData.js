@@ -20,11 +20,11 @@ export const tvsFont = {
 
 // tvScientific Style Library palette (Charts B, C, D)
 export const tvsColors = {
-  'tvScientific Direct': '#0CA672',
-  'Meta': '#1DAFFF',
-  'Search': '#99DBFF',
-  'Email': '#57D9AD',
   'Snap': '#0E5880',
+  'Search': '#1DAFFF',
+  'Meta': '#99DBFF',
+  'tvScientific Direct': '#57D9AD',
+  'Email': '#0CA672',
   'Pinterest': '#06734E',
 };
 
@@ -60,8 +60,8 @@ export const timeData = {
 export const demoVisitsBySource = {
   'Snap':                { visits: 270, conversions: 35 },
   'Search':              { visits: 480, conversions: 102 },
-  'tvScientific Direct': { visits: 850, conversions: 145 },
   'Meta':                { visits: 620, conversions: 88 },
+  'tvScientific Direct': { visits: 850, conversions: 145 },
   'Email':               { visits: 310, conversions: 42 },
   'Pinterest':           { visits: 190, conversions: 28 },
 };
