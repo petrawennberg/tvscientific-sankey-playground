@@ -1,0 +1,6 @@
+/* Hide default MUI labels for edge nodes — only inside .hide-edge-labels containers */
+.hide-edge-labels text.MuiSankeyChart-nodeLabel[data-node="impressions"],
+.hide-edge-labels text.MuiSankeyChart-nodeLabel[data-node="conversions"],
+.hide-edge-labels text.MuiSankeyChart-nodeLabel[data-node="no-conversion"] {
+  display: none;
+}
