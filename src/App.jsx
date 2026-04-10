@@ -6,36 +6,11 @@ import ChartD_MuiValuesShown from './charts/ChartD_MuiValuesShown';
 import ChartE_MuiBrandColors from './charts/ChartE_MuiBrandColors';
 
 const charts = [
-  {
-    id: 'A',
-    label: 'Chart A: Original (Recharts)',
-    description: 'Faithful port of the current Recharts implementation. Source-colored links, time labels on flows, custom node rendering.',
-    Component: ChartA_Recharts,
-  },
-  {
-    id: 'B',
-    label: 'Chart B: MUI X — Source-Colored Links',
-    description: 'MUI X Sankey with links colored by their source node. Clean default labels.',
-    Component: ChartB_MuiSourceColor,
-  },
-  {
-    id: 'C',
-    label: 'Chart C: MUI X — Target-Colored Links',
-    description: 'MUI X Sankey with links colored by their target node. Highlights where traffic ends up.',
-    Component: ChartC_MuiTargetColor,
-  },
-  {
-    id: 'D',
-    label: 'Chart D: MUI X — Values on Links + Plump Curves',
-    description: 'MUI X Sankey with value labels shown on links, wider curve correction for a bolder visual.',
-    Component: ChartD_MuiValuesShown,
-  },
-  {
-    id: 'E',
-    label: 'Chart E: MUI X — Brand Colors',
-    description: 'MUI X Sankey using actual brand colors: Meta blue, Google blue, Snap yellow, Pinterest red, tvScientific green.',
-    Component: ChartE_MuiBrandColors,
-  },
+  { id: 'A', prefix: 'Chart A:', label: 'Original (Recharts)', Component: ChartA_Recharts },
+  { id: 'B', prefix: 'Chart B:', label: 'tvS Colors + Default Labels', Component: ChartB_MuiSourceColor },
+  { id: 'C', prefix: 'Chart C:', label: 'tvS Colors + Edge Labels', Component: ChartC_MuiTargetColor },
+  { id: 'D', prefix: 'Chart D:', label: 'tvS Colors + Centered Labels', Component: ChartD_MuiValuesShown },
+  { id: 'E', prefix: 'Chart E:', label: 'Brand Colors', Component: ChartE_MuiBrandColors },
 ];
 
 export default function App() {
@@ -43,8 +18,8 @@ export default function App() {
   const current = charts.find((c) => c.id === activeChart);
 
   return (
-    <div style={{ fontFamily: '"Noto Sans JP", sans-serif', maxWidth: 1200, margin: '0 auto', padding: '24px 32px' }}>
-      <h1 style={{ fontSize: 22, fontWeight: 700, color: '#1e293b', margin: 0 }}>
+    <div style={{ fontFamily: '"Noto Sans JP", sans-serif', maxWidth: 1280, width: '100%', margin: '0 auto', padding: '24px 32px', boxSizing: 'border-box' }}>
+      <h1 style={{ fontSize: 36, fontWeight: 700, lineHeight: '40px', letterSpacing: 0, color: '#1e293b', margin: '0 0 80px' }}>
         Sankey Chart Playground
       </h1>
 
@@ -67,7 +42,7 @@ export default function App() {
               transition: 'all 0.15s',
             }}
           >
-            {chart.label}
+            <strong>{chart.prefix}</strong> {chart.label}
           </button>
         ))}
       </div>
@@ -75,14 +50,7 @@ export default function App() {
       {/* Active chart */}
       {current && (
         <div>
-          <div style={{
-            border: '1px solid #e2e8f0',
-            borderRadius: 12,
-            padding: '40px 44px',
-            background: '#fff',
-          }}>
-            <current.Component />
-          </div>
+          <current.Component />
         </div>
       )}
 

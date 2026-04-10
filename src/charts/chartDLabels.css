@@ -2,8 +2,21 @@
 /* Skip impressions, conversions, no-conversion (handled by EdgeLabels) */
 .chart-d-labels text.MuiSankeyChart-nodeLabel:not([data-node="impressions"]):not([data-node="conversions"]):not([data-node="no-conversion"]) {
   text-anchor: middle !important;
-  transform: translate(8px, -22px);
-  fill: #64748b !important;
-  font-weight: 400 !important;
+  transform: translate(8px, -26px);
+  fill: #1e293b !important;
+  font-weight: 700 !important;
   font-size: 12px !important;
+}
+
+/* Per-node vertical adjustments — !important to override general rule */
+.chart-d-labels text.MuiSankeyChart-nodeLabel[data-node="tvscientific-direct"] {
+  transform: translate(8px, -56px) !important;
+}
+
+.chart-d-labels text.MuiSankeyChart-nodeLabel[data-node="search"] {
+  transform: translate(8px, -34px) !important;
+}
+
+.chart-d-labels text.MuiSankeyChart-nodeLabel[data-node="meta"] {
+  transform: translate(8px, -38px) !important;
 }

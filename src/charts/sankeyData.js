@@ -14,8 +14,8 @@ export const colors = {
 // tvScientific Style Library font + color (Charts B, C, D)
 export const tvsFont = {
   fontFamily: '"Noto Sans JP", sans-serif',
-  fontWeight: 900,
-  color: '#13171A',
+  fontWeight: 700,
+  color: '#1e293b',
 };
 
 // tvScientific Style Library palette (Charts B, C, D)

@@ -51,6 +51,7 @@ export default function ChartA_Recharts() {
           node={(props) => {
             const { x, y, width, height, payload } = props;
             const fillColor = payload.nodeColor || '#6366f1';
+            const isEdgeNode = ['TV Impressions', 'Total Conversions', 'No Conversion'].includes(payload.name);
             return (
               <g>
                 <rect
@@ -61,7 +62,7 @@ export default function ChartA_Recharts() {
                 <text
                   x={x - 8} y={y + height / 2}
                   textAnchor="end" dominantBaseline="middle"
-                  fill="#1e293b" fontSize="12" fontWeight="700"
+                  fill="#1e293b" fontSize={isEdgeNode ? "14" : "12"} fontWeight="700"
                 >
                   {payload.name}
                 </text>
@@ -114,7 +115,7 @@ export default function ChartA_Recharts() {
 
       </div>
       {/* Legend */}
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 16 }}>
+      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 16, justifyContent: 'center' }}>
         {Object.entries(colors).map(([source, color]) => (
           <div key={source} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div style={{ width: 14, height: 14, borderRadius: 3, backgroundColor: color }} />

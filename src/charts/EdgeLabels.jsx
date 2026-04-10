@@ -5,13 +5,13 @@ import React from 'react';
 
 const labelStyle = {
   position: 'absolute',
-  fontSize: 12,
+  fontSize: 14,
   fontWeight: 700,
-  color: '#13171A',
+  color: '#1e293b',
   whiteSpace: 'nowrap',
 };
 
-export default function EdgeLabels({ margin = { left: 160, right: 160, top: 56 } }) {
+export default function EdgeLabels({ margin = { left: 160, right: 160 }, convTop = '22%', noConvTop = '55%' }) {
   const pad = 12;
 
   return (
@@ -28,11 +28,11 @@ export default function EdgeLabels({ margin = { left: 160, right: 160, top: 56 }
         TV Impressions
       </span>
 
-      {/* Total Conversions — right side, small node near top */}
+      {/* Total Conversions — right side */}
       <span style={{
         ...labelStyle,
         right: pad,
-        top: '22%',
+        top: convTop,
         transform: 'translateY(-50%)',
         textAlign: 'left',
         width: margin.right - pad - 8,
@@ -40,11 +40,11 @@ export default function EdgeLabels({ margin = { left: 160, right: 160, top: 56 }
         Total Conversions
       </span>
 
-      {/* No Conversion — right side, large node filling most of the lower area */}
+      {/* No Conversion — right side */}
       <span style={{
         ...labelStyle,
         right: pad,
-        top: '55%',
+        top: noConvTop,
         transform: 'translateY(-50%)',
         textAlign: 'left',
         width: margin.right - pad - 8,

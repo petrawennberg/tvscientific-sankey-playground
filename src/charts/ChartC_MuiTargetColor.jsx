@@ -39,7 +39,7 @@ export default function ChartC_MuiTargetColor() {
       </div>
 
       {/* Legend */}
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 16 }}>
+      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 16, justifyContent: 'center' }}>
         {Object.entries(tvsColors).map(([source, color]) => (
           <div key={source} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div style={{ width: 14, height: 14, borderRadius: 3, backgroundColor: color }} />

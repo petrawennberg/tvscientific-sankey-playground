@@ -16,15 +16,15 @@ export default function ChartD_MuiValuesShown() {
     <div style={{ width: '100%', ...tvsFont }}>
       <div className="hide-edge-labels chart-d-labels" style={{ position: 'relative' }}>
       <ColumnHeaders />
-      <EdgeLabels />
+      <EdgeLabels convTop="30%" />
       <SankeyChart
-        height={600}
+        height={720}
         series={{
           data: { nodes, links },
           nodeOptions: {
             showLabels: true,
             width: 16,
-            padding: 55,
+            padding: 75,
             sort: 'fixed',
           },
           linkOptions: {
@@ -36,12 +36,12 @@ export default function ChartD_MuiValuesShown() {
           },
           valueFormatter: () => null,
         }}
-        margin={{ top: 56, right: 160, bottom: 20, left: 160 }}
+        margin={{ top: 72, right: 160, bottom: 20, left: 160 }}
       />
       </div>
 
       {/* Legend */}
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 16 }}>
+      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 16, justifyContent: 'center' }}>
         {Object.entries(tvsColors).map(([source, color]) => (
           <div key={source} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div style={{ width: 14, height: 14, borderRadius: 3, backgroundColor: color }} />
