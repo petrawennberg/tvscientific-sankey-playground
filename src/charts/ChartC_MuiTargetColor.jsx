@@ -1,5 +1,6 @@
 // CHART C — MUI X Sankey: Target-Colored Links
 // Links inherit color from their target node
+// Experiment: top-aligned chart via large bottom margin
 
 import React from 'react';
 import { SankeyChart } from '@mui/x-charts-pro/SankeyChart';
@@ -11,11 +12,14 @@ import './sankeyLabelFix.css';
 export default function ChartC_MuiTargetColor() {
   const { nodes, links } = buildMuiData();
 
+  // Top-align: large bottom margin shrinks the drawing area upward.
+  // Drawing area = 600 - 56 (top) - 220 (bottom) = 324px, pinned to the top.
+  // Nodes + padding fill that band, leaving empty space below.
   return (
     <div style={{ width: '100%', ...tvsFont }}>
       <div className="hide-edge-labels" style={{ position: 'relative' }}>
       <ColumnHeaders />
-      <EdgeLabels />
+      <EdgeLabels convTop="14%" noConvTop="36%" />
       <SankeyChart
         height={600}
         series={{
@@ -23,7 +27,7 @@ export default function ChartC_MuiTargetColor() {
           nodeOptions: {
             showLabels: true,
             width: 16,
-            padding: 40,
+            padding: 24,
             sort: 'fixed',
           },
           linkOptions: {
@@ -34,7 +38,7 @@ export default function ChartC_MuiTargetColor() {
           },
           valueFormatter: () => null,
         }}
-        margin={{ top: 56, right: 160, bottom: 20, left: 160 }}
+        margin={{ top: 56, right: 160, bottom: 220, left: 160 }}
       />
       </div>
 
