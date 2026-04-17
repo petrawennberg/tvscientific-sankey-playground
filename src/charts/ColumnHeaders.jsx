@@ -10,7 +10,7 @@ const headerStyle = {
   textTransform: 'uppercase',
   letterSpacing: '0.05em',
   position: 'absolute',
-  top: 4,
+  top: 16,
 };
 
 export default function ColumnHeaders({ margin = { left: 160, right: 160 }, labels = ['Impressions', 'Visits', 'Conversions'] }) {

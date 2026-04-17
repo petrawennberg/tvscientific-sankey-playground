@@ -164,19 +164,10 @@ export default function ChartF_SpotPet() {
             return parts.join(' · ');
           },
         }}
-        margin={{ top: 72, right: 160, bottom: 20, left: 160 }}
+        margin={{ top: 96, right: 160, bottom: 20, left: 160 }}
       />
       </div>
 
-      {/* Legend */}
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 16, justifyContent: 'center' }}>
-        {Object.entries(chartDPalette).map(([source, color]) => (
-          <div key={source} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 14, height: 14, borderRadius: 3, backgroundColor: color }} />
-            <span style={{ fontSize: 12, fontWeight: 400, color: '#6b7280' }}>{source}</span>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

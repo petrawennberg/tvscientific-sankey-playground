@@ -56,7 +56,7 @@ export default function App() {
         </div>
       )}
 
-      <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center', marginTop: 32 }}>
+      <p style={{ fontSize: 11, color: '#94a3b8', textAlign: 'center', marginTop: 0 }}>
         Data: src/charts/sankeyData.js | Charts: src/charts/Chart[A-D]_*.jsx
       </p>
     </div>

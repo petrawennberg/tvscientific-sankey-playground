@@ -6,7 +6,7 @@ import { SankeyChart } from '@mui/x-charts-pro/SankeyChart';
 import { tvsFont } from './sankeyData';
 import ColumnHeaders from './ColumnHeaders';
 import './sankeyLabelFix.css';
-import './chartDLabels.css';
+import './chartELabels.css';
 
 // Spot Pet Insurance — real data from Referral Flow CSV
 // Sorted by conversions (visit→action), highest first
@@ -78,6 +78,9 @@ const chartDPalette = {
   'Display/Programmatic': '#73CDFF',
 };
 
+const VISIT_NODE_IDS = ['other', 'tvsci', 'search', 'social', 'display'];
+const LABEL_GAP = 14;
+
 const EDGE_LABELS = {
   'impressions': 'TV Impressions',
   'conversions': 'tvScientific Conversions',
@@ -98,7 +101,44 @@ export default function ChartD_MuiValuesShown() {
       if (!allReady) return;
 
       svg.querySelectorAll('.chart-e-edge-label').forEach(el => el.remove());
+      svg.querySelectorAll('.chart-e-visit-label').forEach(el => el.remove());
 
+      // Visit-column labels — centered above each stream node
+      VISIT_NODE_IDS.forEach(id => {
+        const builtinLabel = svg.querySelector(`text[data-node="${id}"]`);
+        if (!builtinLabel) return;
+
+        const labelY = parseFloat(builtinLabel.getAttribute('y'));
+        let bestRect = null;
+        let bestDist = Infinity;
+        svg.querySelectorAll('rect').forEach(r => {
+          const ry = parseFloat(r.getAttribute('y'));
+          const rh = parseFloat(r.getAttribute('height'));
+          const dist = Math.abs(ry + rh / 2 - labelY);
+          if (dist < bestDist) { bestDist = dist; bestRect = r; }
+        });
+
+        if (bestRect) {
+          const rectX = parseFloat(bestRect.getAttribute('x'));
+          const rectW = parseFloat(bestRect.getAttribute('width'));
+          const rectY = parseFloat(bestRect.getAttribute('y'));
+          const nodeData = spotPetData.find(s => s.id === id);
+          const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          text.setAttribute('class', 'chart-e-visit-label');
+          text.setAttribute('x', rectX + rectW / 2);
+          text.setAttribute('y', rectY - LABEL_GAP);
+          text.setAttribute('text-anchor', 'middle');
+          text.setAttribute('fill', '#1e293b');
+          text.setAttribute('font-size', '12px');
+          text.setAttribute('font-weight', '700');
+          text.setAttribute('font-family', '"Noto Sans JP", sans-serif');
+          text.setAttribute('pointer-events', 'none');
+          text.textContent = nodeData?.label || id;
+          svg.appendChild(text);
+        }
+      });
+
+      // Edge labels — positioned beside impression/conversion/no-conversion nodes
       Object.entries(EDGE_LABELS).forEach(([id, label]) => {
         const builtinLabel = svg.querySelector(`text[data-node="${id}"]`);
         if (!builtinLabel) return;
@@ -159,7 +199,7 @@ export default function ChartD_MuiValuesShown() {
 
   return (
     <div style={{ width: '100%', ...tvsFont }}>
-      <div className="hide-edge-labels chart-d-labels" ref={chartRef} style={{ position: 'relative' }}>
+      <div className="hide-edge-labels chart-e-labels" ref={chartRef} style={{ position: 'relative' }}>
       <ColumnHeaders />
       <SankeyChart
         height={620}
@@ -187,19 +227,10 @@ export default function ChartD_MuiValuesShown() {
             return parts.join(' · ');
           },
         }}
-        margin={{ top: 72, right: 160, bottom: 20, left: 160 }}
+        margin={{ top: 96, right: 160, bottom: 20, left: 160 }}
       />
       </div>
 
-      {/* Legend */}
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 16, justifyContent: 'center' }}>
-        {Object.entries(chartDPalette).map(([source, color]) => (
-          <div key={source} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 14, height: 14, borderRadius: 3, backgroundColor: color }} />
-            <span style={{ fontSize: 12, fontWeight: 400, color: '#6b7280' }}>{source}</span>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
