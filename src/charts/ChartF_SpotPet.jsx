@@ -13,7 +13,7 @@ import './chartFLabels.css';
 const spotPetData = [
   { id: 'other',   label: 'Other',                 visits: 94, conversions: 14, color: '#0E5880',
     avgMinToVisit: 15641, avgMinToConv: 4621 },
-  { id: 'tvsci',   label: 'tvScientific',           visits: 22, conversions: 2,  color: '#57D9AD',
+  { id: 'tvsci',   label: 'tvScientific Direct',     visits: 22, conversions: 2,  color: '#57D9AD',
     avgMinToVisit: 15096, avgMinToConv: 3152 },
   { id: 'search',  label: 'Search',                 visits: 24, conversions: 2,  color: '#147BB2',
     avgMinToVisit: 15639, avgMinToConv: 3178 },
@@ -36,7 +36,7 @@ const spotPetLookup = Object.fromEntries(spotPetData.map(s => [s.id, s]));
 
 function buildSpotPetSankey() {
   const nodes = [
-    { id: 'impressions', label: 'TV Impressions', color: '#57D9AD' },
+    { id: 'impressions', label: 'tvScientific Impressions', color: '#57D9AD' },
     ...spotPetData.map(s => ({ id: s.id, label: s.label, color: s.color })),
     { id: 'conversions', label: 'tvScientific Conversions', color: '#0CA672' },
   ];
@@ -137,7 +137,7 @@ export default function ChartF_SpotPet() {
   return (
     <div style={{ width: '100%', ...tvsFont }}>
       <div className="hide-edge-labels chart-f-labels" ref={chartRef} style={{ position: 'relative' }}>
-      <ColumnHeaders labels={['TV Impressions', 'Visits', 'tvScientific Conversions']} />
+      <ColumnHeaders labels={['tvScientific Impressions', 'Visits', 'tvScientific Conversions']} />
       <SankeyChart
         height={620}
         series={{

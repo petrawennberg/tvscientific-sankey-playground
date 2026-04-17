@@ -13,7 +13,7 @@ import './chartELabels.css';
 const spotPetData = [
   { id: 'other',   label: 'Other',                 visits: 94, conversions: 14, color: '#0E5880',
     avgMinToVisit: 15641, avgMinToConv: 4621 },
-  { id: 'tvsci',   label: 'tvScientific',           visits: 22, conversions: 2,  color: '#57D9AD',
+  { id: 'tvsci',   label: 'tvScientific Direct',     visits: 22, conversions: 2,  color: '#57D9AD',
     avgMinToVisit: 15096, avgMinToConv: 3152 },
   { id: 'search',  label: 'Search',                 visits: 24, conversions: 2,  color: '#147BB2',
     avgMinToVisit: 15639, avgMinToConv: 3178 },
@@ -33,7 +33,7 @@ function formatDuration(minutes) {
 
 function buildSpotPetSankey() {
   const nodes = [
-    { id: 'impressions', label: 'TV Impressions', color: '#57D9AD' },
+    { id: 'impressions', label: 'tvScientific Impressions', color: '#57D9AD' },
     ...spotPetData.map(s => ({ id: s.id, label: s.label, color: s.color })),
     { id: 'conversions', label: 'tvScientific Conversions', color: '#0CA672' },
     { id: 'no-conversion', label: 'No Conversion', color: '#E8EAED' },
@@ -82,7 +82,7 @@ const VISIT_NODE_IDS = ['other', 'tvsci', 'search', 'social', 'display'];
 const LABEL_GAP = 14;
 
 const EDGE_LABELS = {
-  'impressions': 'TV Impressions',
+  'impressions': 'tvScientific Impressions',
   'conversions': 'tvScientific Conversions',
   'no-conversion': 'No Conversion',
 };
@@ -175,8 +175,8 @@ export default function ChartD_MuiValuesShown() {
           text.setAttribute('font-family', '"Noto Sans JP", sans-serif');
           text.setAttribute('pointer-events', 'none');
 
-          // Split "tvScientific Conversions" into two lines
-          const lines = id === 'conversions' ? ['tvScientific', 'Conversions'] : [label];
+          // Split two-word tvScientific labels into two lines
+          const lines = (id === 'conversions' || id === 'impressions') ? ['tvScientific', id === 'impressions' ? 'Impressions' : 'Conversions'] : [label];
           lines.forEach((line, i) => {
             const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
             tspan.setAttribute('x', textX);
