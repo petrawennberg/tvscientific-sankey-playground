@@ -1,0 +1,14 @@
+/* Chart F: Hide built-in MUI labels for visit-column nodes */
+/* Custom labels are rendered via React overlay instead */
+.chart-f-labels text.MuiSankeyChart-nodeLabel[data-node="other"],
+.chart-f-labels text.MuiSankeyChart-nodeLabel[data-node="tvsci"],
+.chart-f-labels text.MuiSankeyChart-nodeLabel[data-node="search"],
+.chart-f-labels text.MuiSankeyChart-nodeLabel[data-node="social"],
+.chart-f-labels text.MuiSankeyChart-nodeLabel[data-node="display"] {
+  display: none;
+}
+
+/* Hide the tiny Display/Programmatic → Conversions link */
+.chart-f-labels path[data-link-source="display"][data-link-target="conversions"] {
+  opacity: 0 !important;
+}

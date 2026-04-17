@@ -1,0 +1,9 @@
+/* Chart E: Hide built-in MUI labels for visit-column nodes */
+/* Custom labels are rendered via React overlay instead */
+.chart-e-labels text.MuiSankeyChart-nodeLabel[data-node="other"],
+.chart-e-labels text.MuiSankeyChart-nodeLabel[data-node="tvsci"],
+.chart-e-labels text.MuiSankeyChart-nodeLabel[data-node="search"],
+.chart-e-labels text.MuiSankeyChart-nodeLabel[data-node="social"],
+.chart-e-labels text.MuiSankeyChart-nodeLabel[data-node="display"] {
+  display: none;
+}

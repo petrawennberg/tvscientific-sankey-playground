@@ -1,12 +1,12 @@
-// CHART D — MUI X Sankey: Values on Links + Plump Curves
-// Shows values directly on the flow paths, wider curve correction
+// CHART F — Spot Pet Insurance (real data)
+// Based on Chart D, using Referral Flow CSV data
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { SankeyChart } from '@mui/x-charts-pro/SankeyChart';
 import { tvsFont } from './sankeyData';
 import ColumnHeaders from './ColumnHeaders';
 import './sankeyLabelFix.css';
-import './chartDLabels.css';
+import './chartFLabels.css';
 
 // Spot Pet Insurance — real data from Referral Flow CSV
 // Sorted by conversions (visit→action), highest first
@@ -19,7 +19,7 @@ const spotPetData = [
     avgMinToVisit: 15639, avgMinToConv: 3178 },
   { id: 'social',  label: 'Social',                 visits: 15, conversions: 1,  color: '#1A9EE5',
     avgMinToVisit: 13518, avgMinToConv: 4002 },
-  { id: 'display', label: 'Display/Programmatic',   visits: 20, conversions: 0,  color: '#73CDFF',
+  { id: 'display', label: 'Display/Programmatic',   visits: 20, conversions: 0.001, color: '#73CDFF',
     avgMinToVisit: 14957, avgMinToConv: 13940 },
 ];
 
@@ -31,12 +31,14 @@ function formatDuration(minutes) {
   return `${Math.round(minutes)}m`;
 }
 
+// Lookup map for tooltip data
+const spotPetLookup = Object.fromEntries(spotPetData.map(s => [s.id, s]));
+
 function buildSpotPetSankey() {
   const nodes = [
     { id: 'impressions', label: 'TV Impressions', color: '#57D9AD' },
     ...spotPetData.map(s => ({ id: s.id, label: s.label, color: s.color })),
     { id: 'conversions', label: 'tvScientific Conversions', color: '#0CA672' },
-    { id: 'no-conversion', label: 'No Conversion', color: '#E8EAED' },
   ];
 
   const links = [];
@@ -47,29 +49,18 @@ function buildSpotPetSankey() {
       tooltipValue: `${s.visits} visits`,
       tooltipTime: `Avg time: ${formatDuration(s.avgMinToVisit)}`,
     });
-    if (s.conversions > 0) {
-      links.push({
-        source: s.id, target: 'conversions', value: s.conversions,
-        tooltipLabel: `${s.label} → Conversions`,
-        tooltipValue: `${s.conversions} conversions`,
-        tooltipTime: `Avg time: ${formatDuration(s.avgMinToConv)}`,
-      });
-    }
-    const noConv = s.visits - s.conversions;
-    if (noConv > 0) {
-      links.push({
-        source: s.id, target: 'no-conversion', value: noConv,
-        tooltipLabel: `${s.label} → No Conversion`,
-        tooltipValue: `${noConv} visits`,
-        tooltipTime: null,
-      });
-    }
+    links.push({
+      source: s.id, target: 'conversions', value: s.conversions,
+      tooltipLabel: `${s.label} → Conversions`,
+      tooltipValue: s.conversions >= 1 ? `${s.conversions} conversions` : 'No conversions',
+      tooltipTime: s.conversions >= 1 ? `Avg time: ${formatDuration(s.avgMinToConv)}` : null,
+    });
   });
 
   return { nodes, links };
 }
 
-// Chart D palette for legend
+// Chart F palette for legend
 const chartDPalette = {
   'tvScientific':         '#57D9AD',
   'Other':                '#0E5880',
@@ -78,34 +69,33 @@ const chartDPalette = {
   'Display/Programmatic': '#73CDFF',
 };
 
-const EDGE_LABELS = {
-  'impressions': 'TV Impressions',
-  'conversions': 'tvScientific Conversions',
-  'no-conversion': 'No Conversion',
-};
+const VISIT_NODE_IDS = ['other', 'tvsci', 'search', 'social', 'display'];
+const LABEL_GAP = 14; // px above node top edge
 
-export default function ChartD_MuiValuesShown() {
+export default function ChartF_SpotPet() {
   const { nodes, links } = buildSpotPetSankey();
   const chartRef = useRef(null);
 
   useEffect(() => {
-    function placeEdgeLabels() {
+    function placeLabels() {
       if (!chartRef.current) return;
       const svg = chartRef.current.querySelector('svg');
       if (!svg) return;
 
-      const allReady = Object.keys(EDGE_LABELS).every(id => svg.querySelector(`text[data-node="${id}"]`));
+      // Check all visit nodes are rendered
+      const allReady = VISIT_NODE_IDS.every(id => svg.querySelector(`text[data-node="${id}"]`));
       if (!allReady) return;
 
-      svg.querySelectorAll('.chart-e-edge-label').forEach(el => el.remove());
+      // Remove any previously injected labels
+      svg.querySelectorAll('.chart-f-custom-label').forEach(el => el.remove());
 
-      Object.entries(EDGE_LABELS).forEach(([id, label]) => {
+      VISIT_NODE_IDS.forEach(id => {
         const builtinLabel = svg.querySelector(`text[data-node="${id}"]`);
         if (!builtinLabel) return;
 
         const labelY = parseFloat(builtinLabel.getAttribute('y'));
 
-        // Find matching rect
+        // Find the rect whose vertical center is closest to this label
         let bestRect = null;
         let bestDist = Infinity;
         svg.querySelectorAll('rect').forEach(r => {
@@ -119,48 +109,35 @@ export default function ChartD_MuiValuesShown() {
           const rectX = parseFloat(bestRect.getAttribute('x'));
           const rectW = parseFloat(bestRect.getAttribute('width'));
           const rectY = parseFloat(bestRect.getAttribute('y'));
-          const rectH = parseFloat(bestRect.getAttribute('height'));
-          const isLeft = id === 'impressions';
-
-          const textX = isLeft ? rectX - 12 : rectX + rectW + 12;
-          const textY = rectY + rectH / 2;
-          const anchor = isLeft ? 'end' : 'start';
+          const nodeData = spotPetData.find(s => s.id === id);
           const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-          text.setAttribute('class', 'chart-e-edge-label');
-          text.setAttribute('x', textX);
-          text.setAttribute('text-anchor', anchor);
+          text.setAttribute('class', 'chart-f-custom-label');
+          text.setAttribute('x', rectX + rectW / 2);
+          text.setAttribute('y', rectY - LABEL_GAP);
+          text.setAttribute('text-anchor', 'middle');
           text.setAttribute('fill', '#1e293b');
-          text.setAttribute('font-size', '14px');
+          text.setAttribute('font-size', '12px');
           text.setAttribute('font-weight', '700');
           text.setAttribute('font-family', '"Noto Sans JP", sans-serif');
           text.setAttribute('pointer-events', 'none');
-
-          // Split "tvScientific Conversions" into two lines
-          const lines = id === 'conversions' ? ['tvScientific', 'Conversions'] : [label];
-          lines.forEach((line, i) => {
-            const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
-            tspan.setAttribute('x', textX);
-            tspan.setAttribute('dy', i === 0 ? (lines.length > 1 ? '-0.6em' : '0') : '1.2em');
-            tspan.setAttribute('dominant-baseline', lines.length === 1 ? 'central' : 'auto');
-            tspan.textContent = line;
-            text.appendChild(tspan);
-          });
-          text.setAttribute('y', textY);
+          text.textContent = nodeData?.label || id;
           svg.appendChild(text);
         }
       });
     }
 
-    const t1 = setTimeout(placeEdgeLabels, 100);
-    const t2 = setTimeout(placeEdgeLabels, 300);
-    const t3 = setTimeout(placeEdgeLabels, 600);
+    // Retry until the SVG nodes are ready
+    const t1 = setTimeout(placeLabels, 100);
+    const t2 = setTimeout(placeLabels, 300);
+    const t3 = setTimeout(placeLabels, 600);
+
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, []);
 
   return (
     <div style={{ width: '100%', ...tvsFont }}>
-      <div className="hide-edge-labels chart-d-labels" ref={chartRef} style={{ position: 'relative' }}>
-      <ColumnHeaders />
+      <div className="hide-edge-labels chart-f-labels" ref={chartRef} style={{ position: 'relative' }}>
+      <ColumnHeaders labels={['TV Impressions', 'Visits', 'tvScientific Conversions']} />
       <SankeyChart
         height={620}
         series={{

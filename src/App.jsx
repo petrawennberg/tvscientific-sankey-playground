@@ -4,13 +4,15 @@ import ChartB_MuiSourceColor from './charts/ChartB_MuiSourceColor';
 import ChartC_MuiTargetColor from './charts/ChartC_MuiTargetColor';
 import ChartD_MuiValuesShown from './charts/ChartD_MuiValuesShown';
 import ChartE_MuiBrandColors from './charts/ChartE_MuiBrandColors';
+import ChartF_SpotPet from './charts/ChartF_SpotPet';
 
 const charts = [
   { id: 'A', prefix: 'Chart A:', label: 'Original (Recharts)', Component: ChartA_Recharts },
   { id: 'B', prefix: 'Chart B:', label: 'tvS Colors + Default Labels', Component: ChartB_MuiSourceColor },
   { id: 'C', prefix: 'Chart C:', label: 'tvS Colors + Edge Labels', Component: ChartC_MuiTargetColor },
-  { id: 'D', prefix: 'Chart D:', label: 'tvS Colors + Centered Labels', Component: ChartD_MuiValuesShown },
-  { id: 'E', prefix: 'Chart E:', label: 'Brand Colors', Component: ChartE_MuiBrandColors },
+  { id: 'D', prefix: 'Chart D:', label: 'Brand Colors', Component: ChartE_MuiBrandColors },
+  { id: 'E', prefix: 'Chart E:', label: 'tvS Colors + Centered Labels', Component: ChartD_MuiValuesShown },
+  { id: 'F', prefix: 'Chart F:', label: 'Hiding No Conversions', Component: ChartF_SpotPet },
 ];
 
 export default function App() {

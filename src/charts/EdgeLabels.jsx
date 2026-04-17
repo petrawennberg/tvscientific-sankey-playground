@@ -11,7 +11,7 @@ const labelStyle = {
   whiteSpace: 'nowrap',
 };
 
-export default function EdgeLabels({ margin = { left: 160, right: 160 }, convTop = '22%', noConvTop = '55%' }) {
+export default function EdgeLabels({ margin = { left: 160, right: 160 }, convTop = '22%', noConvTop = '55%', convLabel = 'Total Conversions' }) {
   const pad = 12;
 
   return (
@@ -37,7 +37,7 @@ export default function EdgeLabels({ margin = { left: 160, right: 160 }, convTop
         textAlign: 'left',
         width: margin.right - pad - 8,
       }}>
-        Total Conversions
+        {convLabel}
       </span>
 
       {/* No Conversion — right side */}

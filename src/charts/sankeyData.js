@@ -79,8 +79,8 @@ export function buildRechartsData(visitsBySource = demoVisitsBySource) {
 
   const nodes = [
     { name: 'TV Impressions', nodeColor: '#6366f1' },
-    ...sources.map(s => ({ name: `${s} Visits`, nodeColor: colors[s] || '#94a3b8' })),
-    { name: 'Total Conversions', nodeColor: '#0CA672' },
+    ...sources.map(s => ({ name: s === 'tvScientific Direct' ? 'Direct' : s, nodeColor: colors[s] || '#94a3b8' })),
+    { name: 'tvScientific Conversions', nodeColor: '#0CA672' },
     { name: 'No Conversion', nodeColor: '#C4C9D0' },
   ];
 
@@ -134,10 +134,10 @@ export function buildMuiData(visitsBySource = demoVisitsBySource, palette = tvsC
     { id: 'impressions', label: 'TV Impressions', color: palette['tvScientific Direct'] },
     ...sources.map(s => ({
       id: s.toLowerCase().replace(/\s+/g, '-'),
-      label: `${s} Visits`,
+      label: s === 'tvScientific Direct' ? 'Direct' : s,
       color: palette[s] || '#94a3b8',
     })),
-    { id: 'conversions', label: 'Total Conversions', color: '#0CA672' },
+    { id: 'conversions', label: 'tvScientific Conversions', color: '#0CA672' },
     { id: 'no-conversion', label: 'No Conversion', color: '#C4C9D0' },
   ];
 

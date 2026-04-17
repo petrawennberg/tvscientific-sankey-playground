@@ -20,3 +20,7 @@
 .chart-d-labels text.MuiSankeyChart-nodeLabel[data-node="meta"] {
   transform: translate(8px, -38px) !important;
 }
+
+.chart-d-labels text.MuiSankeyChart-nodeLabel[data-node="other"] {
+  transform: translate(8px, -80px) !important;
+}
