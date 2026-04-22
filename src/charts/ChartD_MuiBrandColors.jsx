@@ -1,4 +1,4 @@
-// CHART E — MUI X Sankey: Brand Colors + Time Intervals Table
+// CHART D — MUI X Sankey: Brand Colors + Time Intervals Table
 // Each source uses its actual brand color
 
 import React from 'react';
@@ -11,7 +11,7 @@ import './sankeyLabelFix.css';
 // Stream order matches chart top→bottom
 const streamOrder = ['Snap', 'Search', 'Meta', 'tvScientific Direct', 'Email', 'Pinterest'];
 
-export default function ChartE_MuiBrandColors() {
+export default function ChartD_MuiBrandColors() {
   const { nodes, links } = buildMuiData(undefined, brandColors);
 
   return (

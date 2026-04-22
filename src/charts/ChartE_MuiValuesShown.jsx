@@ -1,4 +1,4 @@
-// CHART D — MUI X Sankey: Values on Links + Plump Curves
+// CHART E — MUI X Sankey: Values on Links + Plump Curves
 // Shows values directly on the flow paths, wider curve correction
 
 import React, { useRef, useEffect } from 'react';
@@ -87,7 +87,7 @@ const EDGE_LABELS = {
   'no-conversion': 'No Conversion',
 };
 
-export default function ChartD_MuiValuesShown() {
+export default function ChartE_MuiValuesShown() {
   const { nodes, links } = buildSpotPetSankey();
   const chartRef = useRef(null);
 

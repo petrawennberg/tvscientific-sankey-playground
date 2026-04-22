@@ -2,16 +2,16 @@ import { useState } from 'react';
 import ChartA_Recharts from './charts/ChartA_Recharts';
 import ChartB_MuiSourceColor from './charts/ChartB_MuiSourceColor';
 import ChartC_MuiTargetColor from './charts/ChartC_MuiTargetColor';
-import ChartD_MuiValuesShown from './charts/ChartD_MuiValuesShown';
-import ChartE_MuiBrandColors from './charts/ChartE_MuiBrandColors';
+import ChartD_MuiBrandColors from './charts/ChartD_MuiBrandColors';
+import ChartE_MuiValuesShown from './charts/ChartE_MuiValuesShown';
 import ChartF_SpotPet from './charts/ChartF_SpotPet';
 
 const charts = [
   { id: 'A', prefix: 'Chart A:', label: 'Original (Recharts)', Component: ChartA_Recharts },
   { id: 'B', prefix: 'Chart B:', label: 'tvS Colors + Default Labels', Component: ChartB_MuiSourceColor },
   { id: 'C', prefix: 'Chart C:', label: 'tvS Colors + Edge Labels', Component: ChartC_MuiTargetColor },
-  { id: 'D', prefix: 'Chart D:', label: 'Brand Colors', Component: ChartE_MuiBrandColors },
-  { id: 'E', prefix: 'Chart E:', label: 'tvS Colors + Centered Labels', Component: ChartD_MuiValuesShown },
+  { id: 'D', prefix: 'Chart D:', label: 'Brand Colors', Component: ChartD_MuiBrandColors },
+  { id: 'E', prefix: 'Chart E:', label: 'tvS Colors + Centered Labels', Component: ChartE_MuiValuesShown },
   { id: 'F', prefix: 'Chart F:', label: 'Hiding No Conversions', Component: ChartF_SpotPet },
 ];
 
